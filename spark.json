@@ -1,0 +1,7 @@
+{
+  "name": "SharpDustSensor",
+  "author": "Aron Rubin <aronrubin@gmail.com>",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Library for the Sharp Dust Sensor GP2Y10."
+}
