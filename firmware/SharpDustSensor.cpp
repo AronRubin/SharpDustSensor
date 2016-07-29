@@ -24,7 +24,7 @@
 #define MGM3_OFFSET NO_DUST_VOLTAGE
 
 SharpDustSensor::SharpDustSensor( int32_t sensorID, uint8_t ledPin, uint8_t readPin ) {
-  _ledPin = leadPin;
+  _ledPin = ledPin;
   _readPin = readPin;
   _sensorID = sensorID;
   _useMultisample = true;
