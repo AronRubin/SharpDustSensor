@@ -37,16 +37,27 @@ SharpDustSensor::SharpDustSensor( int32_t sensorID, uint8_t ledPin, uint8_t read
 bool SharpDustSensor::begin() {
   pinMode( _ledPin, OUTPUT );
 }
-void SharpDustSensor::setSamplesPerValue( uint8_t samples ) {
-  _samples = samples;
+
+void SharpDustSensor::setUseMultisample( bool useMultisample ) {
+  _useMultisample = useMultisample;
 }
-uint8_t SharpDustSensor::getSamplesPerValue() const {
-  return _samples;
+
+bool SharpDustSensor::getMultisample() const {
+  return _useMultisample;
+}
+
+void SharpDustSensor::setUseMovingAverage( bool useMovingAverage ) {
+  _useMovingAverage = useMovingAverage;
+}
+
+bool SharpDustSensor::getMovingAverage() const {
+  return _useMovingAverage;
 }
 
 void SharpDustSensor::setPauseInterrupts( bool pauseInterrupts ) {
   _pauseInterrupts = pauseInterrupts;
 }
+
 bool SharpDustSensor::getPauseInterrupts( bool pauseInterrupts ) const {
   return _pauseInterrupts;
 }
@@ -71,7 +82,7 @@ int32_t SharpDustSensor::readRaw() {
   int32_t reading = 0;
   long tnow = millis();
 
-  if( _nextTime != 0 && _lastTime + 10 > tnow ) {
+  if( _lastTime != 0 && _lastTime + 10 > tnow ) {
     return _lastValue;
   }
 
@@ -86,7 +97,7 @@ int32_t SharpDustSensor::readRaw() {
     int32_t samples[3] = {
       analogRead( _readPin ),
       analogRead( _readPin ),
-      analogRead( _readPin );
+      analogRead( _readPin )
     };
     // sort to get the median
     if( samples[1] < samples[0] ) {
